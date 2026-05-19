@@ -156,3 +156,77 @@ Keep:
 backend/.env.example
 frontend/config.example.js
 ```
+
+---
+
+## Docker
+
+The project can now run with separate frontend and backend containers.
+
+### Build and run locally
+
+Create a root `.env` file for Docker Compose first:
+
+```bash
+cp .env.example .env
+```
+
+Set at least `JWT_SECRET` in that file.
+
+```bash
+docker compose up --build
+```
+
+This starts:
+
+- frontend on `http://localhost:8080`
+- backend on `http://localhost:5000`
+- MongoDB on `mongodb://localhost:27017`
+
+### Environment in Docker
+
+Docker Compose reads variables from the root `.env` file:
+
+```env
+JWT_SECRET=replace-with-a-long-random-secret
+BACKEND_PORT=5000
+FRONTEND_PORT=8080
+MONGO_URI=mongodb://mongo:27017/wordle
+CORS_ORIGIN=http://localhost:8080
+API_BASE_URL=http://localhost:5000
+```
+
+The frontend container generates `config.js` at startup from `API_BASE_URL` in its Docker start command.
+
+### JWT secret
+
+`JWT_SECRET` is not something you download from a service. It is just a long random secret string that only your backend knows and uses to sign tokens.
+
+Example PowerShell command to generate one:
+
+```powershell
+[Convert]::ToBase64String((1..64 | ForEach-Object { Get-Random -Maximum 256 } | ForEach-Object { [byte]$_ }))
+```
+
+Put the generated value into the root `.env` file:
+
+```env
+JWT_SECRET=your-generated-secret-here
+```
+
+### Build images for GitHub Container Registry
+
+```bash
+docker build -t ghcr.io/OgYYRe/lexiq-backend:latest ./backend
+docker build -t ghcr.io/OgYYRe/lexiq-frontend:latest ./frontend
+```
+
+### Push images to GitHub Container Registry
+
+```bash
+echo <github-token> | docker login ghcr.io -u OgYYRe --password-stdin
+docker push ghcr.io/OgYYRe/lexiq-backend:latest
+docker push ghcr.io/OgYYRe/lexiq-frontend:latest
+```
+
+The GitHub token needs package write permissions.

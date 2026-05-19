@@ -1,0 +1,36 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    image: ghcr.io/OgYYRe/lexiq-backend:latest
+    depends_on:
+      - mongo
+    environment:
+      PORT: ${BACKEND_PORT:-5000}
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/wordle}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in the root .env file}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8080}
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+
+  frontend:
+    build:
+      context: ./frontend
+    image: ghcr.io/OgYYRe/lexiq-frontend:latest
+    depends_on:
+      - backend
+    environment:
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:5000}
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+
+volumes:
+  mongo-data:
