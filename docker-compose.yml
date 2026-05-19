@@ -10,7 +10,7 @@ services:
   backend:
     build:
       context: ./backend
-    image: ghcr.io/OgYYRe/lexiq-backend:latest
+    image: ghcr.io/ogyyre/lexiq-backend:latest
     depends_on:
       - mongo
     environment:
@@ -24,7 +24,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: ghcr.io/OgYYRe/lexiq-frontend:latest
+    image: ghcr.io/ogyyre/lexiq-frontend:latest
     depends_on:
       - backend
     environment:
