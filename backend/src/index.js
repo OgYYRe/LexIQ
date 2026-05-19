@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -14,22 +13,30 @@ const requiredEnv = ["MONGO_URI", "JWT_SECRET"];
 const missing = requiredEnv.filter((key) => !process.env[key]);
 if (missing.length > 0) {
   console.error(`Missing required env vars: ${missing.join(", ")}`);
-  console.error("Create backend/.env based on backend/.env.example");
+  console.error("Set the required environment variables before starting the backend.");
   process.exit(1);
 }
 
 const PORT = process.env.PORT || 5000;
+const corsOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 const app = express();
 
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://wordle-qjbl.onrender.com",
+    origin(origin, callback) {
+      if (!origin || corsOrigins.length === 0 || corsOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
   }),
 );
-
-// Serve the frontend
-app.use(express.static(path.join(__dirname, "..", "..", "frontend")));
 
 // API routes
 app.use("/api/auth", authRoutes);
