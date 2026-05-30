@@ -21,7 +21,7 @@ const attemptsValueEl = document.getElementById("attempts-value");
 const scoreUsernameEl = document.getElementById("score-username");
 
 // State for current game
-let authToken = localStorage.getItem("wordleToken");
+let authToken = localStorage.getItem("lexiqToken");
 let targetWord = "";
 let board = [];
 let currentRow = 0;
@@ -63,9 +63,9 @@ function hideGame() {
 function setToken(token) {
   authToken = token;
   if (token) {
-    localStorage.setItem("wordleToken", token);
+    localStorage.setItem("lexiqToken", token);
   } else {
-    localStorage.removeItem("wordleToken");
+    localStorage.removeItem("lexiqToken");
   }
 }
 

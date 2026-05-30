@@ -1,7 +1,7 @@
 {
-  "name": "wordle-backend",
+  "name": "lexiq-backend",
   "version": "1.0.0",
-  "description": "Wordle starter backend",
+  "description": "LexIQ backend",
   "main": "src/index.js",
   "type": "commonjs",
   "scripts": {

@@ -1,6 +1,16 @@
-# Wordle Starter
+```
+░██                               ░██████  ░██████   
+░██                                 ░██   ░██   ░██  
+░██          ░███████  ░██    ░██   ░██  ░██     ░██ 
+░██         ░██    ░██  ░██  ░██    ░██  ░██     ░██ 
+░██         ░█████████   ░█████     ░██  ░██     ░██ 
+░██         ░██         ░██  ░██    ░██   ░██   ░██  
+░██████████  ░███████  ░██    ░██ ░██████  ░██████   
+                                                ░██  
+                                                 ░██ 
+```
 
-Simple full-stack Wordle app.
+Simple full-stack LexIQ app.
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: Node.js + Express
@@ -52,7 +62,7 @@ cp .env.example .env
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/wordle
+MONGO_URI=mongodb://localhost:27017/lexiq
 JWT_SECRET=your_secret_here
 ```
 
@@ -60,7 +70,7 @@ JWT_SECRET=your_secret_here
 
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://your-user:your-password@your-cluster.mongodb.net/wordle
+MONGO_URI=mongodb+srv://your-user:your-password@your-cluster.mongodb.net/lexiq
 JWT_SECRET=your_secret_here
 ```
 
@@ -191,7 +201,7 @@ Docker Compose reads variables from the root `.env` file:
 JWT_SECRET=replace-with-a-long-random-secret
 BACKEND_PORT=5000
 FRONTEND_PORT=8080
-MONGO_URI=mongodb://mongo:27017/wordle
+MONGO_URI=mongodb://mongo:27017/lexiq
 CORS_ORIGIN=http://localhost:8080
 API_BASE_URL=http://localhost:5000
 ```
