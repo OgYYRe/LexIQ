@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const authRoutes = require("./routes/auth");
 const gameRoutes = require("./routes/game");
@@ -35,6 +36,13 @@ function createApp() {
 
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
+  });
+
+  const frontendPath = path.resolve(__dirname, "../../frontend");
+  app.use(express.static(frontendPath));
+
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 
   return app;
