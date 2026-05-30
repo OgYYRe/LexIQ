@@ -16,7 +16,7 @@ module.exports = function authMiddleware(req, res, next) {
       email: decoded.email,
     };
     return next();
-  } catch (error) {
+  } catch {
     return res.status(401).json({ message: "Invalid token." });
   }
 };

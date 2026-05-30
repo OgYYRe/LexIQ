@@ -6,8 +6,6 @@ on:
       - main
 
   push:
-    branches-ignore:
-      - main
 
 jobs:
   backend-tests:
