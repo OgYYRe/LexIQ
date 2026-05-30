@@ -48,7 +48,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-  docker:
+  deploy:
     needs: verify
     runs-on: ubuntu-latest
 
