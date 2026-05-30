@@ -65,6 +65,7 @@ Beispiel für `backend/.env`:
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/lexiq
 JWT_SECRET=your_secret_here
+CORS_ORIGIN=http://localhost:5000
 ```
 
 Frontend-Konfiguration anlegen:
@@ -87,6 +88,8 @@ cd ../backend
 npm install
 npm start
 ```
+
+Beim lokalen Start ohne Docker wird das Frontend ebenfalls durch den Backend-Server ausgeliefert. Die Anwendung ist dann unter `http://localhost:5000` erreichbar.
 
 ### 5. Tests lokal ausführen
 
